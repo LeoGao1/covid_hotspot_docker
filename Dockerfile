@@ -23,11 +23,12 @@ RUN pip install --no-cache-dir networkx scipy python-louvain
 RUN pip install --no-cache-dir babypandas
 RUN pip install --no-cache-dir bs4
 RUN pip install --no-cache-dir selenium
-RUN pip install --no-cache-dir urllib
+RUN pip install --no-cache-dir urllib3
 RUN pip install --no-cache-dir datetime
 
 # 4) change back to notebook user
 COPY /run_jupyter.sh /
+RUN chmod 755 /run_jupyter.sh
 USER $NB_UID
 
 # Override command to disable running jupyter notebook at launch
