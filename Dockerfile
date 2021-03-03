@@ -3,7 +3,7 @@
 
 # data science notebook
 # https://hub.docker.com/repository/docker/ucsdets/datascience-notebook/tags
-#ARG BASE_CONTAINER=ucsdets/datascience-notebook:2020.2-stable
+# ARG BASE_CONTAINER=ucsdets/datascience-notebook:2020.2-stable
 
 # scipy/machine learning (tensorflow)
 # https://hub.docker.com/repository/docker/ucsdets/scipy-ml-notebook/tags
@@ -33,3 +33,22 @@ USER $NB_UID
 
 # Override command to disable running jupyter notebook at launch
 # CMD ["/bin/bash"]
+
+
+FROM pytorch/pytorch:latest
+
+RUN apt-get update \
+     && apt-get install -y \
+        libgl1-mesa-glx \
+        libx11-xcb1 \
+     && apt-get clean all \
+     && rm -r /var/lib/apt/lists/*
+
+RUN /opt/conda/bin/conda install --yes \
+    astropy \
+    matplotlib \
+    pandas \
+    scikit-learn \
+    scikit-image
+
+RUN pip install torch
